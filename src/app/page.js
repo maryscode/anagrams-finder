@@ -16,7 +16,7 @@ export default function Home() {
 
   const handleClick = () => {
     
-    if (!textInput){
+    if (!textInput || textInput.trim().length === 0){
       setErrorInput(true);
       return;
     }
@@ -57,8 +57,8 @@ export default function Home() {
               setTextInput('');
               setErrorInput(false);
             }}
-            className={`cursor-pointer text-[60px] font-medium ${rampart.className}`}><span className="font-bold">
-            Anagram</span> Finder
+            className={`text-black cursor-pointer text-[60px] leading-none mb-10 font-medium ${rampart.className}`}>
+            Anagram Finder
           </h1>
           <p className="text-2xl font-light">Enter a sentence and check for anagrams.</p>
           
@@ -69,7 +69,10 @@ export default function Home() {
             ) : ''}
               <input 
                 aria-label="Enter a sentence to check for anagrams"
-                onChange={(e) => setTextInput(e.target.value)}
+                onChange={(e) => {
+                  setTextInput(e.target.value);
+                  if(e.target.value !== "") setErrorInput(false);
+                }}
                 value={textInput}
                 placeholder="Type sentence here"
                 className={`w-full bg-gray-200 p-5 rounded-lg sm:w-sm border-gray-200 border-3 ${errorInput ? 'border-red-400' : ''}`}
@@ -79,12 +82,13 @@ export default function Home() {
                   }
                 }}
               ></input>
-              <p className="absolute top-[105%] sm:bottom-[-20px] text-left text-xs italic ms-0 text-gray-500">Example: She taps past the stop to spot the tops.</p>
+              <p 
+                className="absolute top-[105%] sm:bottom-[-20px] text-left text-xs italic ms-0 text-gray-500">Example: She taps past the stop to spot the tops.</p>
             </div>
             
 
             <button
-              className={`mt-10 sm:mt-0 py-4 px-8 font-medium bg-purple-500 rounded-lg cursor-pointer transition duration-100 text-white hover:bg-purple-400  active:scale-105 active:bg-lime-500 `}
+              className={`mt-8 sm:mt-0 py-4 px-8 font-medium bg-purple-500 rounded-lg cursor-pointer transition duration-100 text-white hover:bg-purple-400  active:scale-105 active:bg-lime-500 `}
               onClick={handleClick}
             >Find Anagrams</button>
           </div>
